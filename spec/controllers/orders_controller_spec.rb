@@ -11,7 +11,7 @@ RSpec.describe OrdersController, :type => :controller do
 			@order_item = OrderItem.new(order_id: 1, product_id: 1)
 			}
 		it "should return 200 for get all orders" do
-			get :index, customer_id:1, format: :json
+			get :index, customer_id: 1, format: :json
 
 			expect(response.status).to be(200)
 
@@ -19,6 +19,21 @@ RSpec.describe OrdersController, :type => :controller do
 
 			expect(ordersJson[0]["totalCost"]).to eq("45.0")
 			expect(ordersJson[0]["customer_id"]).to be(1)
+		end
+
+		it "should return 200 for get one order" do
+			get :show, customer_id: 1, id: 1, format: :json
+			
+			expect(response.status).to be(200)
+
+			ordersJson = JSON.parse(response.body)
+			puts "%"*50
+			puts ordersJson.inspect
+			puts "*"*50
+
+			expect(ordersJson["order"]["totalCost"]).to eq("45.0")
+			expect(ordersJson["order"]["customer_id"]).to be(1)
+
 		end
 
 	end
