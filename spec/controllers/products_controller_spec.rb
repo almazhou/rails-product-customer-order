@@ -23,6 +23,11 @@ RSpec.describe ProductsController, :type => :controller do
 
 			expect(productJson["product"]["name"]).to eq("test")
 		end
+
+		it "should return 404 for get product which doesn't exist" do
+			get :show, {id:10, format: :json}
+			expect(response.status).to be(404)	
+		end
 	end
 
 end
