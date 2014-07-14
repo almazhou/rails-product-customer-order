@@ -36,6 +36,12 @@ RSpec.describe OrdersController, :type => :controller do
 
 		end
 
+		it "should return 200 for get one order" do
+			get :show, customer_id: 1, id: 100, format: :json
+			
+			expect(response.status).to be(404)
+		end
+
 	end
 
 end
