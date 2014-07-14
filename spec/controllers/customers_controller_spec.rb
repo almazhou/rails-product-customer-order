@@ -25,6 +25,21 @@ RSpec.describe CustomersController, :type => :controller do
 
 			expect(customersJson["customer"]["name"]).to eq("test")
 		end
+
+		it "should return 200 for get one customers" do
+			get :show,id: 100, format: :json
+
+			expect(response.status).to be(404)
+		end
+	end
+
+	describe "test /POST" do
+		it "should return 201 for post one customer" do
+			post :create, customer:{name: "test_customer"}
+
+			expect(response.status).to be(201)
+			expect(response.location).to match("/customers/")
+		end
 	end
 
 end
