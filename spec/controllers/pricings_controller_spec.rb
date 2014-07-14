@@ -34,4 +34,17 @@ RSpec.describe PricingsController, :type => :controller do
 			expect(response.status).to eq(404)
 		end
 	end
+
+	describe "test /POST" do
+		before{
+			@product_test = Product.create!(name:"test")	
+		}
+		it "should return 201 for post one pricing" do
+			post :create, product_id:1, pricing:{amount: 45.0}
+
+			expect(response.status).to be(201)
+
+			expect(response.location).to match("/products/1/pricings")
+		end
+	end
 end
