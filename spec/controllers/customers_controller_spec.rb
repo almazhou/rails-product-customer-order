@@ -15,6 +15,16 @@ RSpec.describe CustomersController, :type => :controller do
 
 			expect(customersJson[0]["name"]).to eq("test")
 		end
+
+		it "should return 200 for get one customers" do
+			get :show,id: 1, format: :json
+
+			expect(response.status).to be(200)
+
+			customersJson = JSON.parse(response.body)
+
+			expect(customersJson["customer"]["name"]).to eq("test")
+		end
 	end
 
 end
