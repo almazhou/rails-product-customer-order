@@ -27,5 +27,11 @@ RSpec.describe PricingsController, :type => :controller do
 			expect(pricingsJson["pricing"]["amount"]).to eq("45.0")
 			expect(pricingsJson["pricing"]["product_id"]).to be(1)
 		end
+
+		it "should return 404 for get one pricing not failed" do
+			get :show , product_id: 1, id: 15, format: :json
+
+			expect(response.status).to eq(404)
+		end
 	end
 end
