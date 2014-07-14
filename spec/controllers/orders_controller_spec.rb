@@ -27,10 +27,6 @@ RSpec.describe OrdersController, :type => :controller do
 			expect(response.status).to be(200)
 
 			ordersJson = JSON.parse(response.body)
-			puts "%"*50
-			puts ordersJson.inspect
-			puts "*"*50
-
 			expect(ordersJson["order"]["totalCost"]).to eq("45.0")
 			expect(ordersJson["order"]["customer_id"]).to be(1)
 
@@ -42,6 +38,19 @@ RSpec.describe OrdersController, :type => :controller do
 			expect(response.status).to be(404)
 		end
 
+	end
+
+	describe "test /POST" do
+		before{
+			@customer = Customer.create!(name: "test_name")
+			}
+		it "should return 201 for post one order" do
+			post :create, customer_id: 1, order: {totalCost:45.0,order_items: [{product_id:1, amount: 2},{product_id:2, amount: 3}]}
+
+			expect(response.status).to be(201)
+
+			expect(response.location).to match("/customers/1/orders/1")
+		end
 	end
 
 end
