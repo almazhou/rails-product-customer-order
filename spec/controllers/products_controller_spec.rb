@@ -30,4 +30,13 @@ RSpec.describe ProductsController, :type => :controller do
 		end
 	end
 
+	describe "TEST /POST" do
+		it "should return 201 for post one product" do
+			post :create, product:{name:"testpost"}
+
+			expect(response.status).to be(201)
+			expect(response.location).to match("/products/")
+		end
+	end
+
 end
